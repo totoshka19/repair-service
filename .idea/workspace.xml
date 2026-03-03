@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="feat: реализовать аутентификацию&#10;&#10;- lib/session.ts: SessionData, sessionOptions, getSession() с динамическим&#10;  импортом next/headers для совместимости с Edge runtime&#10;- prisma/seed.ts: 3 пользователя (dispatcher, master1, master2) + 7 заявок&#10;  всех статусов, пароли через bcrypt, идемпотентный upsert&#10;- middleware.ts: защита /dispatcher/*, /master/*, /api/requests/* по роли,&#10;  редирект на /login при отсутствии сессии&#10;- app/api/auth/login: POST — bcrypt-проверка пароля, установка cookie&#10;- app/api/auth/logout: POST — уничтожение сессии&#10;- app/api/auth/me: GET — данные текущего пользователя или 401" />
+    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="feat: реализовать аутентификацию&#10;&#10;- lib/session.ts: SessionData, sessionOptions, getSession() с динамическим&#10;  импортом next/headers для совместимости с Edge runtime&#10;- prisma/seed.ts: 3 пользователя (dispatcher, master1, master2) + 7 заявок&#10;  всех статусов, пароли через bcrypt, идемпотентный upsert&#10;- middleware.ts: защита /dispatcher/*, /master/*, /api/requests/* по роли,&#10;  редирект на /login при отсутствии сессии&#10;- app/api/auth/login: POST — bcrypt-проверка пароля, установка cookie&#10;- app/api/auth/logout: POST — уничтожение сессии&#10;- app/api/auth/me: GET — данные текущего пользователя или 401">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PROMPTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/PROMPTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/middleware.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,7 +76,7 @@
       <option name="presentableId" value="Default" />
       <updated>1772553588882</updated>
       <workItem from="1772553591569" duration="2277000" />
-      <workItem from="1772574274759" duration="4269000" />
+      <workItem from="1772574274759" duration="5219000" />
     </task>
     <task id="LOCAL-00001" summary="chore: инициализация проекта&#10;&#10;- Next.js 16.1.6 + React 19 + TypeScript (App Router, алиас @/*)&#10;- Tailwind CSS v4 + shadcn/ui&#10;- Prisma 7 + @prisma/adapter-pg + pg (PostgreSQL)&#10;- Zod v4 + React Hook Form + @hookform/resolvers&#10;- Vitest + tsx (тесты и запуск сидов)">
       <option name="closed" value="true" />
@@ -106,7 +110,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772578256833</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: реализовать аутентификацию&#10;&#10;- lib/session.ts: SessionData, sessionOptions, getSession() с динамическим&#10;  импортом next/headers для совместимости с Edge runtime&#10;- prisma/seed.ts: 3 пользователя (dispatcher, master1, master2) + 7 заявок&#10;  всех статусов, пароли через bcrypt, идемпотентный upsert&#10;- middleware.ts: защита /dispatcher/*, /master/*, /api/requests/* по роли,&#10;  редирект на /login при отсутствии сессии&#10;- app/api/auth/login: POST — bcrypt-проверка пароля, установка cookie&#10;- app/api/auth/logout: POST — уничтожение сессии&#10;- app/api/auth/me: GET — данные текущего пользователя или 401">
+      <option name="closed" value="true" />
+      <created>1772578750040</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1772578750040</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

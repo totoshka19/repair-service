@@ -5,7 +5,6 @@ import { type SessionData, sessionOptions } from '@/lib/session'
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  // Читаем сессию из cookie (read-only, не меняем)
   const session = await getIronSession<SessionData>(request.cookies, sessionOptions)
 
   if (!session.userId) {
@@ -27,5 +26,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dispatcher/:path*', '/master/:path*', '/api/requests/:path*'],
+  matcher: ['/dispatcher/:path*', '/master/:path*', '/api/requests/:path+'],
 }

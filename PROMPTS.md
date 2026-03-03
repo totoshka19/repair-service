@@ -100,3 +100,15 @@
 
 ---
 
+04.03.2026 02:00 Реализуй API для работы с заявками.
+1. GET /api/requests - список заявок.
+2. POST /api/requests - создать заявку.
+   Валидация через Zod.
+3. PATCH /api/requests/[id]/assign - назначить мастера (только DISPATCHER).
+4. PATCH /api/requests/[id]/cancel - отменить заявку (только DISPATCHER).
+5. PATCH /api/requests/[id]/take - взять в работу (только MASTER).
+   Обязательно: атомарный updateMany
+   с проверкой status=ASSIGNED и assignedTo=currentUserId в одном запросе.
+   Если count=0 - вернуть 409 Conflict.
+
+---
