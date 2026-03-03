@@ -4,10 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="feat: реализовать аутентификацию&#10;&#10;- lib/session.ts: SessionData, sessionOptions, getSession() с динамическим&#10;  импортом next/headers для совместимости с Edge runtime&#10;- prisma/seed.ts: 3 пользователя (dispatcher, master1, master2) + 7 заявок&#10;  всех статусов, пароли через bcrypt, идемпотентный upsert&#10;- middleware.ts: защита /dispatcher/*, /master/*, /api/requests/* по роли,&#10;  редирект на /login при отсутствии сессии&#10;- app/api/auth/login: POST — bcrypt-проверка пароля, установка cookie&#10;- app/api/auth/logout: POST — уничтожение сессии&#10;- app/api/auth/me: GET — данные текущего пользователя или 401">
+    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="feat: реализовать API заявок&#10;&#10;- middleware.ts: исправлен :path* → :path+ для /api/requests,&#10;  POST создания заявки остаётся публичным&#10;- GET /api/requests: список с фильтром по статусу, диспетчер видит&#10;  все заявки, мастер - только свои&#10;- POST /api/requests: публичное создание, валидация через Zod,&#10;  статус NEW, запись в audit log&#10;- PATCH /api/requests/[id]/assign: назначить мастера (DISPATCHER),&#10;  NEW → ASSIGNED&#10;- PATCH /api/requests/[id]/cancel: отменить (DISPATCHER),&#10;  NEW/ASSIGNED → CANCELED&#10;- PATCH /api/requests/[id]/take: взять в работу (MASTER),&#10;  атомарный updateMany, 409 при гонке, ASSIGNED → IN_PROGRESS&#10;- PATCH /api/requests/[id]/complete: завершить (MASTER),&#10;  IN_PROGRESS → DONE&#10;- GET /api/users: список мастеров для диспетчера (?role=MASTER)&#10;- Все действия пишут событие в таблицу RequestEvent (audit log)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PROMPTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/PROMPTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware.ts" beforeDir="false" afterPath="$PROJECT_DIR$/middleware.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma/seed.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/seed.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +37,7 @@
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
+    "javascript.preferred.runtime.type.id": "node",
     "js.debugger.nextJs.config.created.client": "true",
     "js.debugger.nextJs.config.created.server": "true",
     "junie.onboarding.icon.badge.shown": "true",
@@ -41,6 +46,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "npm.db:studio.executor": "Run",
+    "npm.setup.executor": "Run",
     "to.speed.mode.migration.done": "true",
     "ts.external.directory.path": "D:\\Обучение\\Frontend\\Тестовые задания от работодателей\\База Бизнеса\\repair-service\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
@@ -60,6 +67,32 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="db:studio" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="db:studio" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="setup" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="setup" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.db:studio" />
+        <item itemvalue="npm.setup" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -76,7 +109,7 @@
       <option name="presentableId" value="Default" />
       <updated>1772553588882</updated>
       <workItem from="1772553591569" duration="2277000" />
-      <workItem from="1772574274759" duration="5219000" />
+      <workItem from="1772574274759" duration="6476000" />
     </task>
     <task id="LOCAL-00001" summary="chore: инициализация проекта&#10;&#10;- Next.js 16.1.6 + React 19 + TypeScript (App Router, алиас @/*)&#10;- Tailwind CSS v4 + shadcn/ui&#10;- Prisma 7 + @prisma/adapter-pg + pg (PostgreSQL)&#10;- Zod v4 + React Hook Form + @hookform/resolvers&#10;- Vitest + tsx (тесты и запуск сидов)">
       <option name="closed" value="true" />
@@ -118,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772578750040</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: реализовать API заявок&#10;&#10;- middleware.ts: исправлен :path* → :path+ для /api/requests,&#10;  POST создания заявки остаётся публичным&#10;- GET /api/requests: список с фильтром по статусу, диспетчер видит&#10;  все заявки, мастер - только свои&#10;- POST /api/requests: публичное создание, валидация через Zod,&#10;  статус NEW, запись в audit log&#10;- PATCH /api/requests/[id]/assign: назначить мастера (DISPATCHER),&#10;  NEW → ASSIGNED&#10;- PATCH /api/requests/[id]/cancel: отменить (DISPATCHER),&#10;  NEW/ASSIGNED → CANCELED&#10;- PATCH /api/requests/[id]/take: взять в работу (MASTER),&#10;  атомарный updateMany, 409 при гонке, ASSIGNED → IN_PROGRESS&#10;- PATCH /api/requests/[id]/complete: завершить (MASTER),&#10;  IN_PROGRESS → DONE&#10;- GET /api/users: список мастеров для диспетчера (?role=MASTER)&#10;- Все действия пишут событие в таблицу RequestEvent (audit log)">
+      <option name="closed" value="true" />
+      <created>1772579657986</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772579657986</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -140,6 +181,7 @@
     <MESSAGE value="test: добавить интеграционные тесты для заявок и защиты от гонки&#10;&#10;- tests/race-condition.test.ts — два параллельных запроса на take,&#10;  ожидаемый результат: 200 + 409&#10;- tests/requests.test.ts — создание заявки, валидация полей,&#10;  назначение мастера, цикл ASSIGNED → IN_PROGRESS → DONE" />
     <MESSAGE value="feat: настроить Docker и окружение&#10;&#10;- Dockerfile: multi-stage сборка (deps → builder → runner)&#10;- docker-compose.yml: PostgreSQL 17 с healthcheck + app с depends_on service_healthy&#10;- docker-entrypoint.sh: авто-запуск миграций и сидов перед стартом сервера&#10;- next.config.ts: добавлен output standalone для Docker-сборки&#10;- .env.example: шаблон переменных окружения&#10;- .env: локальные значения для разработки (в .gitignore)&#10;- .gitignore: добавлены /generated и исключение для .env.example" />
     <MESSAGE value="feat: реализовать аутентификацию&#10;&#10;- lib/session.ts: SessionData, sessionOptions, getSession() с динамическим&#10;  импортом next/headers для совместимости с Edge runtime&#10;- prisma/seed.ts: 3 пользователя (dispatcher, master1, master2) + 7 заявок&#10;  всех статусов, пароли через bcrypt, идемпотентный upsert&#10;- middleware.ts: защита /dispatcher/*, /master/*, /api/requests/* по роли,&#10;  редирект на /login при отсутствии сессии&#10;- app/api/auth/login: POST — bcrypt-проверка пароля, установка cookie&#10;- app/api/auth/logout: POST — уничтожение сессии&#10;- app/api/auth/me: GET — данные текущего пользователя или 401" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: реализовать аутентификацию&#10;&#10;- lib/session.ts: SessionData, sessionOptions, getSession() с динамическим&#10;  импортом next/headers для совместимости с Edge runtime&#10;- prisma/seed.ts: 3 пользователя (dispatcher, master1, master2) + 7 заявок&#10;  всех статусов, пароли через bcrypt, идемпотентный upsert&#10;- middleware.ts: защита /dispatcher/*, /master/*, /api/requests/* по роли,&#10;  редирект на /login при отсутствии сессии&#10;- app/api/auth/login: POST — bcrypt-проверка пароля, установка cookie&#10;- app/api/auth/logout: POST — уничтожение сессии&#10;- app/api/auth/me: GET — данные текущего пользователя или 401" />
+    <MESSAGE value="feat: реализовать API заявок&#10;&#10;- middleware.ts: исправлен :path* → :path+ для /api/requests,&#10;  POST создания заявки остаётся публичным&#10;- GET /api/requests: список с фильтром по статусу, диспетчер видит&#10;  все заявки, мастер - только свои&#10;- POST /api/requests: публичное создание, валидация через Zod,&#10;  статус NEW, запись в audit log&#10;- PATCH /api/requests/[id]/assign: назначить мастера (DISPATCHER),&#10;  NEW → ASSIGNED&#10;- PATCH /api/requests/[id]/cancel: отменить (DISPATCHER),&#10;  NEW/ASSIGNED → CANCELED&#10;- PATCH /api/requests/[id]/take: взять в работу (MASTER),&#10;  атомарный updateMany, 409 при гонке, ASSIGNED → IN_PROGRESS&#10;- PATCH /api/requests/[id]/complete: завершить (MASTER),&#10;  IN_PROGRESS → DONE&#10;- GET /api/users: список мастеров для диспетчера (?role=MASTER)&#10;- Все действия пишут событие в таблицу RequestEvent (audit log)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: реализовать API заявок&#10;&#10;- middleware.ts: исправлен :path* → :path+ для /api/requests,&#10;  POST создания заявки остаётся публичным&#10;- GET /api/requests: список с фильтром по статусу, диспетчер видит&#10;  все заявки, мастер - только свои&#10;- POST /api/requests: публичное создание, валидация через Zod,&#10;  статус NEW, запись в audit log&#10;- PATCH /api/requests/[id]/assign: назначить мастера (DISPATCHER),&#10;  NEW → ASSIGNED&#10;- PATCH /api/requests/[id]/cancel: отменить (DISPATCHER),&#10;  NEW/ASSIGNED → CANCELED&#10;- PATCH /api/requests/[id]/take: взять в работу (MASTER),&#10;  атомарный updateMany, 409 при гонке, ASSIGNED → IN_PROGRESS&#10;- PATCH /api/requests/[id]/complete: завершить (MASTER),&#10;  IN_PROGRESS → DONE&#10;- GET /api/users: список мастеров для диспетчера (?role=MASTER)&#10;- Все действия пишут событие в таблицу RequestEvent (audit log)" />
   </component>
 </project>
