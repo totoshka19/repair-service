@@ -124,3 +124,9 @@
 4. Запусти dev-сервер.
 5. Проверь работу API.
 Если что-то пойдёт не так, покажи ошибку.
+
+---
+
+04.03.2026 02:38 Установи shadcn/ui компоненты button input label select badge card form sonner.
+Создай компоненты StatusBadge, FilterBar, RequestCard, которые будут переиспользоваться во всех панелях.
+
