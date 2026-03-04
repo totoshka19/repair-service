@@ -406,3 +406,104 @@ Process finished with exit code 1
 ---
 
 04.03.2026 13:22 Напиши тесты для аутентификации.
+
+---
+
+04.03.2026 13:26 Напиши тесты для авторизации по роли.
+
+---
+
+04.03.2026 13:30 Тесты не прошли
+
+```
+C:\nvm4w\nodejs\npm.cmd test
+> repair-service@0.1.0 test
+> vitest run
+ RUN  v4.0.18 D:/Обучение/Frontend/Тестовые задания от работодателей/База Бизнеса/repair-service
+ ✓ tests/race-condition.test.ts (1 test) 858ms
+     ✓ только один из двух параллельных take-запросов успешен  857ms
+ ✓ tests/auth.test.ts (11 tests) 1548ms
+     ✓ успешный вход диспетчера возвращает 200 и данные пользователя  308ms
+     ✓ логаут возвращает success: true  319ms
+ ✓ tests/requests.test.ts (4 tests) 1691ms
+     ✓ диспетчер может назначить мастера на заявку  749ms
+     ✓ мастер завершает заявку: ASSIGNED → IN_PROGRESS → DONE  628ms
+ ❯ tests/authorization.test.ts (14 tests | 4 failed) 3108ms
+       ✓ мастер получает 403  670ms
+       × неавторизованный получает 403 48ms
+       ✓ мастер получает 403  1502ms
+       × неавторизованный получает 403 9ms
+       ✓ мастер получает 403 119ms
+       ✓ неавторизованный получает 403 13ms
+       ✓ диспетчер получает список пользователей 132ms
+       ✓ диспетчер получает 403 122ms
+       × неавторизованный получает 403 6ms
+       ✓ диспетчер получает 403 113ms
+       × неавторизованный получает 403 9ms
+     ✓ неавторизованный получает 401 18ms
+     ✓ диспетчер видит все заявки 118ms
+     ✓ мастер видит только свои заявки 226ms
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/authorization.test.ts > Авторизация: эндпоинты только для DISPATCHER > PATCH /api/requests/[id]/assign > неавторизованный получает 403
+AssertionError: expected 401 to be 403 // Object.is equality
+- Expected
++ Received
+- 403
++ 401
+ ❯ tests/authorization.test.ts:39:26
+     37|       })
+     38| 
+     39|       expect(res.status).toBe(403)
+       |                          ^
+     40|     })
+     41|   })
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+ FAIL  tests/authorization.test.ts > Авторизация: эндпоинты только для DISPATCHER > PATCH /api/requests/[id]/cancel > неавторизованный получает 403
+AssertionError: expected 401 to be 403 // Object.is equality
+- Expected
++ Received
+- 403
++ 401
+ ❯ tests/authorization.test.ts:60:26
+     58|       })
+     59| 
+     60|       expect(res.status).toBe(403)
+       |                          ^
+     61|     })
+     62|   })
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+ FAIL  tests/authorization.test.ts > Авторизация: эндпоинты только для MASTER > PATCH /api/requests/[id]/take > неавторизованный получает 403
+AssertionError: expected 401 to be 403 // Object.is equality
+- Expected
++ Received
+- 403
++ 401
+ ❯ tests/authorization.test.ts:113:26
+    111|       })
+    112| 
+    113|       expect(res.status).toBe(403)
+       |                          ^
+    114|     })
+    115|   })
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+ FAIL  tests/authorization.test.ts > Авторизация: эндпоинты только для MASTER > PATCH /api/requests/[id]/complete > неавторизованный получает 403
+AssertionError: expected 401 to be 403 // Object.is equality
+- Expected
++ Received
+- 403
++ 401
+ ❯ tests/authorization.test.ts:134:26
+    132|       })
+    133| 
+    134|       expect(res.status).toBe(403)
+       |                          ^
+    135|     })
+    136|   })
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+ Test Files  1 failed | 3 passed (4)
+      Tests  4 failed | 26 passed (30)
+   Start at  13:29:08
+   Duration  3.59s (transform 186ms, setup 0ms, import 345ms, tests 7.20s, environment 1ms)
+Process finished with exit code 1
+
+```
