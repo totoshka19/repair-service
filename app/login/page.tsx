@@ -101,6 +101,17 @@ export default function LoginPage() {
               {isSubmitting ? 'Вход…' : 'Войти'}
             </Button>
           </form>
+
+          <div className="mt-4 text-center">
+            <a
+              href="/new-request"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
+            >
+              Подать заявку на ремонт
+            </a>
+          </div>
         </CardContent>
       </Card>
     </div>
