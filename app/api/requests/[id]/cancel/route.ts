@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getSession } from '@/lib/session'
-
-const CANCELABLE_STATUSES = ['NEW', 'ASSIGNED'] as const
+import { requireRole, logEvent } from '@/lib/api-utils'
+import { CANCELABLE_STATUSES, REQUEST_INCLUDE } from '@/lib/constants'
 
 // PATCH /api/requests/[id]/cancel — отменить заявку (только DISPATCHER)
 export async function PATCH(
@@ -10,9 +10,8 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await getSession()
-  if (!session.userId || session.role !== 'DISPATCHER') {
-    return NextResponse.json({ error: 'Доступ запрещён' }, { status: 403 })
-  }
+  const denied = requireRole(session, 'DISPATCHER')
+  if (denied) return denied
 
   const { id } = await params
 
@@ -30,16 +29,10 @@ export async function PATCH(
   const updated = await prisma.request.update({
     where: { id },
     data: { status: 'CANCELED' },
-    include: { master: { select: { id: true, username: true } } },
+    include: REQUEST_INCLUDE,
   })
 
-  await prisma.requestEvent.create({
-    data: {
-      requestId: id,
-      userId: session.userId,
-      action: 'canceled',
-    },
-  })
+  await logEvent(id, 'canceled', session.userId)
 
   return NextResponse.json(updated)
 }

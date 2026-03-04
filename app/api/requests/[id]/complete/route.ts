@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getSession } from '@/lib/session'
+import { requireRole, logEvent } from '@/lib/api-utils'
+import { REQUEST_INCLUDE } from '@/lib/constants'
 
 // PATCH /api/requests/[id]/complete — завершить заявку (только MASTER)
 export async function PATCH(
@@ -8,9 +10,8 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await getSession()
-  if (!session.userId || session.role !== 'MASTER') {
-    return NextResponse.json({ error: 'Доступ запрещён' }, { status: 403 })
-  }
+  const denied = requireRole(session, 'MASTER')
+  if (denied) return denied
 
   const { id } = await params
 
@@ -28,16 +29,10 @@ export async function PATCH(
   const updated = await prisma.request.update({
     where: { id },
     data: { status: 'DONE' },
-    include: { master: { select: { id: true, username: true } } },
+    include: REQUEST_INCLUDE,
   })
 
-  await prisma.requestEvent.create({
-    data: {
-      requestId: id,
-      userId: session.userId,
-      action: 'completed',
-    },
-  })
+  await logEvent(id, 'completed', session.userId)
 
   return NextResponse.json(updated)
 }

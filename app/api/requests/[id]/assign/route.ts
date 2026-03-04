@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getSession } from '@/lib/session'
+import { requireRole, logEvent } from '@/lib/api-utils'
+import { REQUEST_INCLUDE } from '@/lib/constants'
 
 // PATCH /api/requests/[id]/assign — назначить мастера (только DISPATCHER)
 export async function PATCH(
@@ -8,9 +10,8 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await getSession()
-  if (!session.userId || session.role !== 'DISPATCHER') {
-    return NextResponse.json({ error: 'Доступ запрещён' }, { status: 403 })
-  }
+  const denied = requireRole(session, 'DISPATCHER')
+  if (denied) return denied
 
   const { id } = await params
   const { masterId } = await request.json()
@@ -38,17 +39,10 @@ export async function PATCH(
   const updated = await prisma.request.update({
     where: { id },
     data: { status: 'ASSIGNED', assignedTo: masterId },
-    include: { master: { select: { id: true, username: true } } },
+    include: REQUEST_INCLUDE,
   })
 
-  await prisma.requestEvent.create({
-    data: {
-      requestId: id,
-      userId: session.userId,
-      action: 'assigned',
-      comment: `Назначен мастер: ${master.username}`,
-    },
-  })
+  await logEvent(id, 'assigned', session.userId, `Назначен мастер: ${master.username}`)
 
   return NextResponse.json(updated)
 }

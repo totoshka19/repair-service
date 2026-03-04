@@ -3,6 +3,8 @@ import { z } from 'zod'
 import { prisma } from '@/lib/prisma'
 import { getSession } from '@/lib/session'
 import { Status } from '@/generated/prisma/client'
+import { logEvent } from '@/lib/api-utils'
+import { REQUEST_INCLUDE } from '@/lib/constants'
 
 const createRequestSchema = z.object({
   clientName: z.string().min(1, 'Имя клиента обязательно'),
@@ -33,9 +35,7 @@ export async function GET(request: NextRequest) {
 
   const requests = await prisma.request.findMany({
     where,
-    include: {
-      master: { select: { id: true, username: true } },
-    },
+    include: REQUEST_INCLUDE,
     orderBy: { createdAt: 'desc' },
   })
 
@@ -58,12 +58,7 @@ export async function POST(request: NextRequest) {
     data: result.data,
   })
 
-  await prisma.requestEvent.create({
-    data: {
-      requestId: newRequest.id,
-      action: 'created',
-    },
-  })
+  await logEvent(newRequest.id, 'created')
 
   return NextResponse.json(newRequest, { status: 201 })
 }

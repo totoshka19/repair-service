@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getSession } from '@/lib/session'
+import { requireRole, logEvent } from '@/lib/api-utils'
+import { REQUEST_INCLUDE } from '@/lib/constants'
 
 // PATCH /api/requests/[id]/take — взять в работу (только MASTER)
 // Защита от гонки: атомарный updateMany с двойной проверкой в WHERE
@@ -9,9 +11,8 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const session = await getSession()
-  if (!session.userId || session.role !== 'MASTER') {
-    return NextResponse.json({ error: 'Доступ запрещён' }, { status: 403 })
-  }
+  const denied = requireRole(session, 'MASTER')
+  if (denied) return denied
 
   const { id } = await params
 
@@ -33,18 +34,9 @@ export async function PATCH(
     )
   }
 
-  const updated = await prisma.request.findUnique({
-    where: { id },
-    include: { master: { select: { id: true, username: true } } },
-  })
+  const updated = await prisma.request.findUnique({ where: { id }, include: REQUEST_INCLUDE })
 
-  await prisma.requestEvent.create({
-    data: {
-      requestId: id,
-      userId: session.userId,
-      action: 'taken',
-    },
-  })
+  await logEvent(id, 'taken', session.userId)
 
   return NextResponse.json(updated)
 }

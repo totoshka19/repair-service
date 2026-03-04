@@ -2,13 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { getSession } from '@/lib/session'
 import { Role } from '@/generated/prisma/client'
+import { requireRole } from '@/lib/api-utils'
 
 // GET /api/users?role=MASTER — список пользователей по роли (только DISPATCHER)
 export async function GET(request: NextRequest) {
   const session = await getSession()
-  if (!session.userId || session.role !== 'DISPATCHER') {
-    return NextResponse.json({ error: 'Доступ запрещён' }, { status: 403 })
-  }
+  const denied = requireRole(session, 'DISPATCHER')
+  if (denied) return denied
 
   const { searchParams } = new URL(request.url)
   const roleParam = searchParams.get('role')
