@@ -507,3 +507,7 @@ AssertionError: expected 401 to be 403 // Object.is equality
 Process finished with exit code 1
 
 ```
+
+---
+
+04.03.2026 13:33 Напиши тесты для недопустимых переходов статусов.
