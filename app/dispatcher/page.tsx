@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -28,26 +28,30 @@ export default function DispatcherPage() {
   const [assigningId, setAssigningId] = useState<string | null>(null)
   const [selectedMasterId, setSelectedMasterId] = useState<string>('')
   const [loading, setLoading] = useState(true)
+  const [refreshKey, setRefreshKey] = useState(0)
 
-  const fetchRequests = useCallback(async () => {
-    const res = await fetch('/api/requests')
-    if (!res.ok) return
-    const { requests } = await res.json()
-    setRequests(requests)
-    setLoading(false)
-  }, [])
-
-  const fetchMasters = useCallback(async () => {
-    const res = await fetch('/api/users?role=MASTER')
-    if (!res.ok) return
-    const { users } = await res.json()
-    setMasters(users)
-  }, [])
+  const refresh = () => setRefreshKey((k) => k + 1)
 
   useEffect(() => {
-    fetchRequests()
-    fetchMasters()
-  }, [fetchRequests, fetchMasters])
+    const load = async () => {
+      const res = await fetch('/api/requests')
+      if (!res.ok) return
+      const { requests } = await res.json()
+      setRequests(requests)
+      setLoading(false)
+    }
+    load()
+  }, [refreshKey])
+
+  useEffect(() => {
+    const load = async () => {
+      const res = await fetch('/api/users?role=MASTER')
+      if (!res.ok) return
+      const { users } = await res.json()
+      setMasters(users)
+    }
+    load()
+  }, [])
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' })
@@ -74,7 +78,7 @@ export default function DispatcherPage() {
     } else {
       toast.success('Мастер назначен')
       setAssigningId(null)
-      fetchRequests()
+      refresh()
     }
   }
 
@@ -86,7 +90,7 @@ export default function DispatcherPage() {
       toast.error(body.error ?? 'Ошибка отмены')
     } else {
       toast.success('Заявка отменена')
-      fetchRequests()
+      refresh()
     }
   }
 

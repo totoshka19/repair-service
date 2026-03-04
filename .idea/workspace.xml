@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="feat(ui): добавить страницу мастера&#10;&#10;- app/master/page.tsx — список назначенных заявок с фильтрацией по статусу&#10;- ASSIGNED → &quot;Взять в работу&quot; (PATCH /take) с обработкой 409 race condition&#10;- IN_PROGRESS → &quot;Завершить&quot; (PATCH /complete)&#10;- logout через POST /api/auth/logout">
+    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="docs: добавить README и DECISIONS&#10;&#10;- README.md — стек, быстрый старт, тестовые пользователи, страницы,&#10;  жизненный цикл заявки, скрипты&#10;- DECISIONS.md — 7 архитектурных решений с обоснованием">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PROMPTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/PROMPTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,9 +120,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.lint" />
         <item itemvalue="npm.db:up" />
         <item itemvalue="npm.test" />
-        <item itemvalue="npm.lint" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.db:studio" />
       </list>
@@ -144,7 +143,7 @@
       <option name="presentableId" value="Default" />
       <updated>1772553588882</updated>
       <workItem from="1772553591569" duration="2277000" />
-      <workItem from="1772574274759" duration="11420000" />
+      <workItem from="1772574274759" duration="11587000" />
     </task>
     <task id="LOCAL-00001" summary="chore: инициализация проекта&#10;&#10;- Next.js 16.1.6 + React 19 + TypeScript (App Router, алиас @/*)&#10;- Tailwind CSS v4 + shadcn/ui&#10;- Prisma 7 + @prisma/adapter-pg + pg (PostgreSQL)&#10;- Zod v4 + React Hook Form + @hookform/resolvers&#10;- Vitest + tsx (тесты и запуск сидов)">
       <option name="closed" value="true" />
@@ -242,7 +241,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772585147790</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="docs: добавить README и DECISIONS&#10;&#10;- README.md — стек, быстрый старт, тестовые пользователи, страницы,&#10;  жизненный цикл заявки, скрипты&#10;- DECISIONS.md — 7 архитектурных решений с обоснованием">
+      <option name="closed" value="true" />
+      <created>1772585862908</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1772585862908</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -271,6 +278,7 @@
     <MESSAGE value="feat(proxy): переименовать middleware в proxy для Next.js 16&#10;&#10;- middleware.ts → proxy.ts (новое соглашение Next.js 16)&#10;- функция middleware переименована в proxy" />
     <MESSAGE value="feat(ui): добавить страницу диспетчера&#10;&#10;- app/dispatcher/page.tsx — список всех заявок с фильтрацией по статусу&#10;- модальное окно назначения мастера (Select + PATCH /assign)&#10;- отмена заявок со статусом NEW и ASSIGNED (PATCH /cancel)&#10;- logout через POST /api/auth/logout" />
     <MESSAGE value="feat(ui): добавить страницу мастера&#10;&#10;- app/master/page.tsx — список назначенных заявок с фильтрацией по статусу&#10;- ASSIGNED → &quot;Взять в работу&quot; (PATCH /take) с обработкой 409 race condition&#10;- IN_PROGRESS → &quot;Завершить&quot; (PATCH /complete)&#10;- logout через POST /api/auth/logout" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(ui): добавить страницу мастера&#10;&#10;- app/master/page.tsx — список назначенных заявок с фильтрацией по статусу&#10;- ASSIGNED → &quot;Взять в работу&quot; (PATCH /take) с обработкой 409 race condition&#10;- IN_PROGRESS → &quot;Завершить&quot; (PATCH /complete)&#10;- logout через POST /api/auth/logout" />
+    <MESSAGE value="docs: добавить README и DECISIONS&#10;&#10;- README.md — стек, быстрый старт, тестовые пользователи, страницы,&#10;  жизненный цикл заявки, скрипты&#10;- DECISIONS.md — 7 архитектурных решений с обоснованием" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs: добавить README и DECISIONS&#10;&#10;- README.md — стек, быстрый старт, тестовые пользователи, страницы,&#10;  жизненный цикл заявки, скрипты&#10;- DECISIONS.md — 7 архитектурных решений с обоснованием" />
   </component>
 </project>

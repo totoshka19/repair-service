@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
@@ -13,18 +13,20 @@ export default function MasterPage() {
   const [requests, setRequests] = useState<RequestData[]>([])
   const [activeStatus, setActiveStatus] = useState<RequestStatus | null>(null)
   const [loading, setLoading] = useState(true)
+  const [refreshKey, setRefreshKey] = useState(0)
 
-  const fetchRequests = useCallback(async () => {
-    const res = await fetch('/api/requests')
-    if (!res.ok) return
-    const { requests } = await res.json()
-    setRequests(requests)
-    setLoading(false)
-  }, [])
+  const refresh = () => setRefreshKey((k) => k + 1)
 
   useEffect(() => {
-    fetchRequests()
-  }, [fetchRequests])
+    const load = async () => {
+      const res = await fetch('/api/requests')
+      if (!res.ok) return
+      const { requests } = await res.json()
+      setRequests(requests)
+      setLoading(false)
+    }
+    load()
+  }, [refreshKey])
 
   const handleLogout = async () => {
     await fetch('/api/auth/logout', { method: 'POST' })
@@ -36,7 +38,7 @@ export default function MasterPage() {
 
     if (res.status === 409) {
       toast.error('Заявка уже взята другим мастером')
-      fetchRequests()
+      refresh()
       return
     }
 
@@ -47,7 +49,7 @@ export default function MasterPage() {
     }
 
     toast.success('Заявка взята в работу')
-    fetchRequests()
+    refresh()
   }
 
   const handleComplete = async (id: string) => {
@@ -60,7 +62,7 @@ export default function MasterPage() {
     }
 
     toast.success('Заявка завершена')
-    fetchRequests()
+    refresh()
   }
 
   const filtered = activeStatus

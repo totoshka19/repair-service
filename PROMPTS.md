@@ -180,3 +180,45 @@ C:\nvm4w\nodejs\npm.cmd run dev
 1. README.md: краткое описание, стек, быстрый старт, тестовые пользователи, описание страниц, запуск тестов.
 2. DECISIONS.md: архитектурные решения.
 
+---
+
+04.03.2026 04:00 Исправь ошибки линтера.
+
+```
+
+C:\nvm4w\nodejs\npm.cmd run lint
+> repair-service@0.1.0 lint
+> eslint
+D:\Обучение\Frontend\Тестовые задания от работодателей\База Бизнеса\repair-service\app\dispatcher\page.tsx
+  48:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+D:\Обучение\Frontend\Тестовые задания от работодателей\База Бизнеса\repair-service\app\dispatcher\page.tsx:48:5
+  46 |
+  47 |   useEffect(() => {
+> 48 |     fetchRequests()
+     |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  49 |     fetchMasters()
+  50 |   }, [fetchRequests, fetchMasters])
+  51 |  react-hooks/set-state-in-effect
+D:\Обучение\Frontend\Тестовые задания от работодателей\База Бизнеса\repair-service\app\master\page.tsx
+  26:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+D:\Обучение\Frontend\Тестовые задания от работодателей\База Бизнеса\repair-service\app\master\page.tsx:26:5
+  24 |
+  25 |   useEffect(() => {
+> 26 |     fetchRequests()
+     |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  27 |   }, [fetchRequests])
+  28 |
+  29 |   const handleLogout = async () => {  react-hooks/set-state-in-effect
+✖ 2 problems (2 errors, 0 warnings)
+Process finished with exit code 1
+
+```
+
