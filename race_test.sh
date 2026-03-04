@@ -62,11 +62,11 @@ TMPFILE1="$(mktemp /tmp/race_resp1.XXXXXX)"
 TMPFILE2="$(mktemp /tmp/race_resp2.XXXXXX)"
 
 curl -s -b "$COOKIE_FILE" -X PATCH "$BASE_URL/api/requests/$REQUEST_ID/take" \
-  -w "\n%{http_code}" -o "$TMPFILE1" &
+  -w "\n%{http_code}" > "$TMPFILE1" &
 PID1=$!
 
 curl -s -b "$COOKIE_FILE" -X PATCH "$BASE_URL/api/requests/$REQUEST_ID/take" \
-  -w "\n%{http_code}" -o "$TMPFILE2" &
+  -w "\n%{http_code}" > "$TMPFILE2" &
 PID2=$!
 
 wait $PID1

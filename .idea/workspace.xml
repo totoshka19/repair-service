@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="fix(build): убрать earlyAccess из prisma.config, исправить типы proxy.ts&#10;&#10;- prisma.config.ts: удалить устаревшее поле earlyAccess&#10;- proxy.ts: заменить request.cookies на cookie-адаптер&#10;  (read из RequestCookies, write в ResponseCookies)&#10;  для совместимости с CookieStore iron-session">
+    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="docs: добавить инструкцию по проверке гонки и скрипт race_test.sh&#10;&#10;- README: новый раздел «Проверка защиты от гонки» с curl-командами&#10;  для двух терминалов и ссылкой на автоматический скрипт&#10;- race_test.sh: bash-скрипт, который логинится под master1,&#10;  находит ASSIGNED-заявку и отправляет два параллельных PATCH /take,&#10;  проверяя что один ответ 200, второй 409&#10;- PROMPTS.md: зафиксированы промпты текущего сеанса">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PROMPTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/PROMPTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/race_test.sh" beforeDir="false" afterPath="$PROJECT_DIR$/race_test.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,12 +45,14 @@
     "nodejs_package_manager_path": "npm",
     "npm.Next.js: server-side.executor": "Run",
     "npm.build.executor": "Run",
+    "npm.db:seed.executor": "Run",
     "npm.db:studio.executor": "Run",
     "npm.db:up.executor": "Run",
     "npm.lint.executor": "Run",
     "npm.setup.executor": "Run",
     "npm.start.executor": "Run",
     "npm.test.executor": "Run",
+    "settings.editor.selected.configurable": "terminal",
     "to.speed.mode.migration.done": "true",
     "ts.external.directory.path": "D:\\Обучение\\Frontend\\Тестовые задания от работодателей\\База Бизнеса\\repair-service\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
@@ -81,6 +82,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="db:seed" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="db:seed" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="db:up" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -101,16 +112,6 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -123,11 +124,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.db:seed" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.lint" />
         <item itemvalue="npm.db:up" />
-        <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
   </component>
@@ -146,7 +147,7 @@
       <option name="presentableId" value="Default" />
       <updated>1772553588882</updated>
       <workItem from="1772553591569" duration="2277000" />
-      <workItem from="1772574274759" duration="13240000" />
+      <workItem from="1772574274759" duration="14728000" />
     </task>
     <task id="LOCAL-00001" summary="chore: инициализация проекта&#10;&#10;- Next.js 16.1.6 + React 19 + TypeScript (App Router, алиас @/*)&#10;- Tailwind CSS v4 + shadcn/ui&#10;- Prisma 7 + @prisma/adapter-pg + pg (PostgreSQL)&#10;- Zod v4 + React Hook Form + @hookform/resolvers&#10;- Vitest + tsx (тесты и запуск сидов)">
       <option name="closed" value="true" />
@@ -268,7 +269,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772586703966</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="docs: добавить инструкцию по проверке гонки и скрипт race_test.sh&#10;&#10;- README: новый раздел «Проверка защиты от гонки» с curl-командами&#10;  для двух терминалов и ссылкой на автоматический скрипт&#10;- race_test.sh: bash-скрипт, который логинится под master1,&#10;  находит ASSIGNED-заявку и отправляет два параллельных PATCH /take,&#10;  проверяя что один ответ 200, второй 409&#10;- PROMPTS.md: зафиксированы промпты текущего сеанса">
+      <option name="closed" value="true" />
+      <created>1772587771197</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1772587771197</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,6 +309,7 @@
     <MESSAGE value="docs: добавить README и DECISIONS&#10;&#10;- README.md — стек, быстрый старт, тестовые пользователи, страницы,&#10;  жизненный цикл заявки, скрипты&#10;- DECISIONS.md — 7 архитектурных решений с обоснованием" />
     <MESSAGE value="fix(lint): убрать setState-вызовы из тела useEffect&#10;&#10;- заменить useCallback + вызов в useEffect на async load() внутри эффекта&#10;- обновление списка после действий через refreshKey (setRefreshKey)&#10;- dispatcher и master страницы" />
     <MESSAGE value="fix(build): убрать earlyAccess из prisma.config, исправить типы proxy.ts&#10;&#10;- prisma.config.ts: удалить устаревшее поле earlyAccess&#10;- proxy.ts: заменить request.cookies на cookie-адаптер&#10;  (read из RequestCookies, write в ResponseCookies)&#10;  для совместимости с CookieStore iron-session" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix(build): убрать earlyAccess из prisma.config, исправить типы proxy.ts&#10;&#10;- prisma.config.ts: удалить устаревшее поле earlyAccess&#10;- proxy.ts: заменить request.cookies на cookie-адаптер&#10;  (read из RequestCookies, write в ResponseCookies)&#10;  для совместимости с CookieStore iron-session" />
+    <MESSAGE value="docs: добавить инструкцию по проверке гонки и скрипт race_test.sh&#10;&#10;- README: новый раздел «Проверка защиты от гонки» с curl-командами&#10;  для двух терминалов и ссылкой на автоматический скрипт&#10;- race_test.sh: bash-скрипт, который логинится под master1,&#10;  находит ASSIGNED-заявку и отправляет два параллельных PATCH /take,&#10;  проверяя что один ответ 200, второй 409&#10;- PROMPTS.md: зафиксированы промпты текущего сеанса" />
+    <option name="LAST_COMMIT_MESSAGE" value="docs: добавить инструкцию по проверке гонки и скрипт race_test.sh&#10;&#10;- README: новый раздел «Проверка защиты от гонки» с curl-командами&#10;  для двух терминалов и ссылкой на автоматический скрипт&#10;- race_test.sh: bash-скрипт, который логинится под master1,&#10;  находит ASSIGNED-заявку и отправляет два параллельных PATCH /take,&#10;  проверяя что один ответ 200, второй 409&#10;- PROMPTS.md: зафиксированы промпты текущего сеанса" />
   </component>
 </project>
