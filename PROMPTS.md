@@ -515,3 +515,78 @@ Process finished with exit code 1
 ---
 
 04.03.2026 13:37 Напиши тесты для отмены (cancel).
+
+---
+
+04.03.2026 13:40 Напиши тесты для граничных случаев.
+
+---
+
+04.03.2026 13:42 Тесты не прошли
+
+```
+C:\nvm4w\nodejs\npm.cmd test
+> repair-service@0.1.0 test
+> vitest run
+ RUN  v4.0.18 D:/Обучение/Frontend/Тестовые задания от работодателей/База Бизнеса/repair-service
+ ✓ tests/race-condition.test.ts (1 test) 1560ms
+     ✓ только один из двух параллельных take-запросов успешен  1559ms
+ ✓ tests/auth.test.ts (11 tests) 2442ms
+     ✓ успешный вход диспетчера возвращает 200 и данные пользователя  304ms
+     ✓ успешный вход мастера возвращает роль MASTER  446ms
+     ✓ неверный пароль возвращает 401  386ms
+     ✓ логаут возвращает success: true  381ms
+ ✓ tests/requests.test.ts (4 tests) 2897ms
+     ✓ создаёт заявку и возвращает статус NEW  656ms
+     ✓ диспетчер может назначить мастера на заявку  1070ms
+     ✓ мастер завершает заявку: ASSIGNED → IN_PROGRESS → DONE  1078ms
+ ✓ tests/authorization.test.ts (14 tests) 3183ms
+       ✓ мастер получает 403  1154ms
+       ✓ мастер получает 403  304ms
+       ✓ диспетчер получает список пользователей  314ms
+ ❯ tests/edge-cases.test.ts (14 tests | 1 failed) 3292ms
+     ✓ /assign с несуществующим requestId → 404 236ms
+     ✓ /complete с несуществующим requestId → 404 241ms
+     ✓ /take с несуществующим requestId → 409 (атомарный updateMany не находит строку)  400ms
+     ✓ без masterId → 400 194ms
+     ✓ несуществующий masterId → 404 168ms
+     ✓ ID диспетчера вместо мастера → 404 188ms
+     ✓ ?status=NEW возвращает только NEW заявки 42ms
+     ✓ ?status=ASSIGNED возвращает только ASSIGNED заявки 99ms
+     × невалидный статус игнорируется — возвращает все заявки 160ms
+     ✓ ?role=MASTER возвращает только мастеров 40ms
+     ✓ ?role=DISPATCHER возвращает только диспетчеров 18ms
+     ✓ без фильтра возвращает всех пользователей 48ms
+     ✓ пустые строки в обязательных полях → 400 8ms
+     ✓ лишние поля игнорируются, заявка создаётся 15ms
+ ✓ tests/cancel.test.ts (6 tests) 3483ms
+       ✓ диспетчер отменяет NEW заявку → статус CANCELED  490ms
+       ✓ диспетчер отменяет ASSIGNED заявку → статус CANCELED  745ms
+       ✓ нельзя отменить IN_PROGRESS заявку → 409  504ms
+       ✓ нельзя отменить DONE заявку → 409  341ms
+ ✓ tests/status-transitions.test.ts (12 tests) 4108ms
+     ✓ нельзя назначить мастера на ASSIGNED заявку → 409  783ms
+     ✓ нельзя назначить мастера на IN_PROGRESS заявку → 409  538ms
+     ✓ нельзя назначить мастера на CANCELED заявку → 409  335ms
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+ FAIL  tests/edge-cases.test.ts > GET /api/requests: фильтр по статусу > невалидный статус игнорируется — возвращает все заявки
+AssertionError: expected 72 to be 71 // Object.is equality
+- Expected
++ Received
+- 71
++ 72
+ ❯ tests/edge-cases.test.ts:175:29
+    173| 
+    174|     expect(filteredRes.status).toBe(200)
+    175|     expect(filtered.length).toBe(all.length)
+       |                             ^
+    176|   })
+    177| })
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+ Test Files  1 failed | 6 passed (7)
+      Tests  1 failed | 61 passed (62)
+   Start at  13:41:42
+   Duration  4.51s (transform 328ms, setup 0ms, import 687ms, tests 20.97s, environment 1ms)
+Process finished with exit code 1
+
+```
