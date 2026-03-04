@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="feat(ui): добавить страницы входа и создания заявки&#10;&#10;- app/login/page.tsx — форма авторизации (RHF + Zod),&#10;  редирект на /dispatcher или /master по роли&#10;- app/new-request/page.tsx — публичная форма заявки,&#10;  показывает номер после успеха, reset() для повторной подачи&#10;- app/page.tsx — заменён на redirect('/login')">
+    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="feat(proxy): переименовать middleware в proxy для Next.js 16&#10;&#10;- middleware.ts → proxy.ts (новое соглашение Next.js 16)&#10;- функция middleware переименована в proxy">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PROMPTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/PROMPTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -144,7 +143,7 @@
       <option name="presentableId" value="Default" />
       <updated>1772553588882</updated>
       <workItem from="1772553591569" duration="2277000" />
-      <workItem from="1772574274759" duration="9530000" />
+      <workItem from="1772574274759" duration="10322000" />
     </task>
     <task id="LOCAL-00001" summary="chore: инициализация проекта&#10;&#10;- Next.js 16.1.6 + React 19 + TypeScript (App Router, алиас @/*)&#10;- Tailwind CSS v4 + shadcn/ui&#10;- Prisma 7 + @prisma/adapter-pg + pg (PostgreSQL)&#10;- Zod v4 + React Hook Form + @hookform/resolvers&#10;- Vitest + tsx (тесты и запуск сидов)">
       <option name="closed" value="true" />
@@ -218,7 +217,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772582628464</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat(proxy): переименовать middleware в proxy для Next.js 16&#10;&#10;- middleware.ts → proxy.ts (новое соглашение Next.js 16)&#10;- функция middleware переименована в proxy">
+      <option name="closed" value="true" />
+      <created>1772583985916</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1772583985916</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -244,6 +251,7 @@
     <MESSAGE value="fix: исправить конфигурацию Prisma 7 и запуск проекта&#10;&#10;- prisma/schema.prisma: добавлен блок datasource db { provider = &quot;postgresql&quot; }&#10;- prisma.config.ts: добавлен import dotenv/config, env() хелпер,&#10;  datasource.url для корректной работы prisma migrate&#10;- prisma/seed.ts: добавлен import dotenv/config для загрузки DATABASE_URL&#10;  при прямом запуске через tsx&#10;- package.json: добавлена зависимость dotenv" />
     <MESSAGE value="feat: добавить общие UI компоненты&#10;&#10;- shadcn/ui: установлены button, input, label, select, badge,&#10;  card, form, sonner&#10;- app/layout.tsx: Toaster (sonner), lang=&quot;ru&quot;, title &quot;Ремонтная служба&quot;&#10;- components/StatusBadge.tsx: цветные бейджи статусов на русском,&#10;  экспортирует STATUS_LABELS для переиспользования&#10;- components/FilterBar.tsx: кнопки фильтрации по статусу,&#10;  активная кнопка выделена&#10;- components/RequestCard.tsx: карточка заявки с иконками, кнопки&#10;  действий рендерятся только при наличии колбэка" />
     <MESSAGE value="feat(ui): добавить страницы входа и создания заявки&#10;&#10;- app/login/page.tsx — форма авторизации (RHF + Zod),&#10;  редирект на /dispatcher или /master по роли&#10;- app/new-request/page.tsx — публичная форма заявки,&#10;  показывает номер после успеха, reset() для повторной подачи&#10;- app/page.tsx — заменён на redirect('/login')" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat(ui): добавить страницы входа и создания заявки&#10;&#10;- app/login/page.tsx — форма авторизации (RHF + Zod),&#10;  редирект на /dispatcher или /master по роли&#10;- app/new-request/page.tsx — публичная форма заявки,&#10;  показывает номер после успеха, reset() для повторной подачи&#10;- app/page.tsx — заменён на redirect('/login')" />
+    <MESSAGE value="feat(proxy): переименовать middleware в proxy для Next.js 16&#10;&#10;- middleware.ts → proxy.ts (новое соглашение Next.js 16)&#10;- функция middleware переименована в proxy" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat(proxy): переименовать middleware в proxy для Next.js 16&#10;&#10;- middleware.ts → proxy.ts (новое соглашение Next.js 16)&#10;- функция middleware переименована в proxy" />
   </component>
 </project>
