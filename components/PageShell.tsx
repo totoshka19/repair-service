@@ -14,7 +14,6 @@ interface PageShellProps {
   onFilter: (status: RequestStatus | null) => void
   onLogout: () => void
   renderCard: (req: RequestData) => ReactNode
-  modal?: ReactNode
 }
 
 export function PageShell({
@@ -25,11 +24,9 @@ export function PageShell({
   onFilter,
   onLogout,
   renderCard,
-  modal,
 }: PageShellProps) {
   return (
     <div className="min-h-screen bg-muted/40">
-      {modal}
       <div className="max-w-6xl mx-auto px-4 py-6 flex flex-col gap-6">
         <div className="flex items-center justify-between">
           <h1 className="text-2xl font-bold">{title}</h1>

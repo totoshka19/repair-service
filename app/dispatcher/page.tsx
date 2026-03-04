@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import {
   Select,
   SelectContent,
   SelectItem,
@@ -62,53 +69,54 @@ export default function DispatcherPage() {
   const handleCancel = (id: string) =>
     requestAction(`/api/requests/${id}/cancel`, 'Заявка отменена', 'Ошибка отмены')
 
-  const modal = assigningId ? (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-background rounded-lg shadow-lg p-6 w-full max-w-sm flex flex-col gap-4">
-        <p className="font-semibold">Назначить мастера</p>
-        <Select value={selectedMasterId} onValueChange={setSelectedMasterId}>
-          <SelectTrigger>
-            <SelectValue placeholder="Выберите мастера" />
-          </SelectTrigger>
-          <SelectContent>
-            {masters.map((m) => (
-              <SelectItem key={m.id} value={m.id}>
-                {m.username}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-        <div className="flex gap-2 justify-end">
-          <Button variant="outline" onClick={() => setAssigningId(null)}>
-            Отмена
-          </Button>
-          <Button disabled={!selectedMasterId} onClick={handleAssignConfirm}>
-            Назначить
-          </Button>
-        </div>
-      </div>
-    </div>
-  ) : undefined
-
   return (
-    <PageShell
-      title="Панель диспетчера"
-      loading={loading}
-      filtered={filtered}
-      activeStatus={activeStatus}
-      onFilter={setActiveStatus}
-      onLogout={logout}
-      modal={modal}
-      renderCard={(req) => (
-        <RequestCard
-          key={req.id}
-          request={req}
-          onAssign={req.status === 'NEW' ? handleAssignOpen : undefined}
-          onCancel={
-            req.status === 'NEW' || req.status === 'ASSIGNED' ? handleCancel : undefined
-          }
-        />
-      )}
-    />
+    <>
+      <Dialog open={!!assigningId} onOpenChange={(open) => !open && setAssigningId(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Назначить мастера</DialogTitle>
+          </DialogHeader>
+          <Select value={selectedMasterId} onValueChange={setSelectedMasterId}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Выберите мастера" />
+            </SelectTrigger>
+            <SelectContent>
+              {masters.map((m) => (
+                <SelectItem key={m.id} value={m.id}>
+                  {m.username}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAssigningId(null)}>
+              Отмена
+            </Button>
+            <Button disabled={!selectedMasterId} onClick={handleAssignConfirm}>
+              Назначить
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <PageShell
+        title="Панель диспетчера"
+        loading={loading}
+        filtered={filtered}
+        activeStatus={activeStatus}
+        onFilter={setActiveStatus}
+        onLogout={logout}
+        renderCard={(req) => (
+          <RequestCard
+            key={req.id}
+            request={req}
+            onAssign={req.status === 'NEW' ? handleAssignOpen : undefined}
+            onCancel={
+              req.status === 'NEW' || req.status === 'ASSIGNED' ? handleCancel : undefined
+            }
+          />
+        )}
+      />
+    </>
   )
 }
