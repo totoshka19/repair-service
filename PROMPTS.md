@@ -598,3 +598,7 @@ Process finished with exit code 1
 ---
 
 04.03.2026 13:50 Удали components/ui/form.tsx. Убери CardAction и CardDescription из card.tsx
+
+---
+
+04.03.2026 13:55 Сейчас в проекте стандартная favicon. Сделай подходящую.
