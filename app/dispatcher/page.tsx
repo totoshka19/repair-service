@@ -80,7 +80,7 @@ export default function DispatcherPage() {
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Выберите мастера" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent position="popper">
               {masters.map((m) => (
                 <SelectItem key={m.id} value={m.id}>
                   {m.username}
