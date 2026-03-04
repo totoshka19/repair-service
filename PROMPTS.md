@@ -135,3 +135,24 @@
 04.03.2026 02:52 Реализуй страницы входа и создания заявки.
 
 ---
+
+04.03.2026 03:10 Как убить процесс на 3000 порту?
+
+C:\nvm4w\nodejs\npm.cmd run dev
+> repair-service@0.1.0 dev
+> next dev
+⚠ Port 3000 is in use by process 14792, using available port 3001 instead.
+▲ Next.js 16.1.6 (Turbopack)
+- Local:         http://localhost:3001
+- Network:       http://192.168.1.13:3001
+- Environments: .env
+  ✓ Starting...
+  ⨯ Unable to acquire lock at D:\Обучение\Frontend\Тестовые задания от работодателей\База Бизнеса\repair-service\.next\dev\lock, is another instance of next dev running?
+  Suggestion: If you intended to restart next dev, terminate the other process, and then try again.
+  Process finished with exit code 1
+
+---
+
+04.03.2026 03:20 ты уверен, что proxy.ts это новое соглашение Next.js 16? Изучи документацию https://nextjs.org/docs
+
+---
