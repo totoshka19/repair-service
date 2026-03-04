@@ -286,3 +286,8 @@ Next.js build worker exited with code: 1 and signal: null
 Process finished with exit code 1
 ```
 
+---
+
+04.03.2026 04:15
+В README нет раздела с инструкцией по ручной проверке гонки, добавь.
+

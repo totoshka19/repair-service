@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="fix(lint): убрать setState-вызовы из тела useEffect&#10;&#10;- заменить useCallback + вызов в useEffect на async load() внутри эффекта&#10;- обновление списка после действий через refreshKey (setRefreshKey)&#10;- dispatcher и master страницы">
+    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="fix(build): убрать earlyAccess из prisma.config, исправить типы proxy.ts&#10;&#10;- prisma.config.ts: удалить устаревшее поле earlyAccess&#10;- proxy.ts: заменить request.cookies на cookie-адаптер&#10;  (read из RequestCookies, write в ResponseCookies)&#10;  для совместимости с CookieStore iron-session">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PROMPTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/PROMPTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma.config.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/proxy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/proxy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +32,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "SHELLCHECK.PATH": "C:\\Users\\Totoshka\\AppData\\Roaming\\JetBrains\\WebStorm2025.3\\plugins\\Shell Script\\shellcheck.exe",
     "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
     "git-widget-placeholder": "main",
     "javascript.preferred.runtime.type.id": "node",
@@ -123,10 +123,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.test" />
         <item itemvalue="npm.build" />
         <item itemvalue="npm.lint" />
         <item itemvalue="npm.db:up" />
-        <item itemvalue="npm.test" />
         <item itemvalue="npm.start" />
       </list>
     </recent_temporary>
@@ -146,7 +146,7 @@
       <option name="presentableId" value="Default" />
       <updated>1772553588882</updated>
       <workItem from="1772553591569" duration="2277000" />
-      <workItem from="1772574274759" duration="12234000" />
+      <workItem from="1772574274759" duration="13240000" />
     </task>
     <task id="LOCAL-00001" summary="chore: инициализация проекта&#10;&#10;- Next.js 16.1.6 + React 19 + TypeScript (App Router, алиас @/*)&#10;- Tailwind CSS v4 + shadcn/ui&#10;- Prisma 7 + @prisma/adapter-pg + pg (PostgreSQL)&#10;- Zod v4 + React Hook Form + @hookform/resolvers&#10;- Vitest + tsx (тесты и запуск сидов)">
       <option name="closed" value="true" />
@@ -260,7 +260,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772586265244</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="fix(build): убрать earlyAccess из prisma.config, исправить типы proxy.ts&#10;&#10;- prisma.config.ts: удалить устаревшее поле earlyAccess&#10;- proxy.ts: заменить request.cookies на cookie-адаптер&#10;  (read из RequestCookies, write в ResponseCookies)&#10;  для совместимости с CookieStore iron-session">
+      <option name="closed" value="true" />
+      <created>1772586703965</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1772586703966</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -291,6 +299,7 @@
     <MESSAGE value="feat(ui): добавить страницу мастера&#10;&#10;- app/master/page.tsx — список назначенных заявок с фильтрацией по статусу&#10;- ASSIGNED → &quot;Взять в работу&quot; (PATCH /take) с обработкой 409 race condition&#10;- IN_PROGRESS → &quot;Завершить&quot; (PATCH /complete)&#10;- logout через POST /api/auth/logout" />
     <MESSAGE value="docs: добавить README и DECISIONS&#10;&#10;- README.md — стек, быстрый старт, тестовые пользователи, страницы,&#10;  жизненный цикл заявки, скрипты&#10;- DECISIONS.md — 7 архитектурных решений с обоснованием" />
     <MESSAGE value="fix(lint): убрать setState-вызовы из тела useEffect&#10;&#10;- заменить useCallback + вызов в useEffect на async load() внутри эффекта&#10;- обновление списка после действий через refreshKey (setRefreshKey)&#10;- dispatcher и master страницы" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix(lint): убрать setState-вызовы из тела useEffect&#10;&#10;- заменить useCallback + вызов в useEffect на async load() внутри эффекта&#10;- обновление списка после действий через refreshKey (setRefreshKey)&#10;- dispatcher и master страницы" />
+    <MESSAGE value="fix(build): убрать earlyAccess из prisma.config, исправить типы proxy.ts&#10;&#10;- prisma.config.ts: удалить устаревшее поле earlyAccess&#10;- proxy.ts: заменить request.cookies на cookie-адаптер&#10;  (read из RequestCookies, write в ResponseCookies)&#10;  для совместимости с CookieStore iron-session" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(build): убрать earlyAccess из prisma.config, исправить типы proxy.ts&#10;&#10;- prisma.config.ts: удалить устаревшее поле earlyAccess&#10;- proxy.ts: заменить request.cookies на cookie-адаптер&#10;  (read из RequestCookies, write в ResponseCookies)&#10;  для совместимости с CookieStore iron-session" />
   </component>
 </project>
