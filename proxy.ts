@@ -4,8 +4,17 @@ import { type SessionData, sessionOptions } from '@/lib/session'
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const response = NextResponse.next()
 
-  const session = await getIronSession<SessionData>(request.cookies, sessionOptions)
+  // RequestCookies несовместим с CookieStore iron-session по типу set().
+  // Адаптер: читаем из request.cookies, пишем в response.cookies.
+  const cookies = {
+    get: request.cookies.get.bind(request.cookies),
+    set: response.cookies.set.bind(response.cookies),
+    delete: response.cookies.delete.bind(response.cookies),
+  }
+
+  const session = await getIronSession<SessionData>(cookies, sessionOptions)
 
   if (!session.userId) {
     if (pathname.startsWith('/api/')) {
@@ -22,7 +31,7 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
-  return NextResponse.next()
+  return response
 }
 
 export const config = {

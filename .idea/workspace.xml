@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="docs: добавить README и DECISIONS&#10;&#10;- README.md — стек, быстрый старт, тестовые пользователи, страницы,&#10;  жизненный цикл заявки, скрипты&#10;- DECISIONS.md — 7 архитектурных решений с обоснованием">
+    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="fix(lint): убрать setState-вызовы из тела useEffect&#10;&#10;- заменить useCallback + вызов в useEffect на async load() внутри эффекта&#10;- обновление списка после действий через refreshKey (setRefreshKey)&#10;- dispatcher и master страницы">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PROMPTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/PROMPTS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/prisma.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/prisma.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/proxy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/proxy.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +45,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.Next.js: server-side.executor": "Run",
+    "npm.build.executor": "Run",
     "npm.db:studio.executor": "Run",
     "npm.db:up.executor": "Run",
     "npm.lint.executor": "Run",
@@ -68,11 +71,11 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="db:studio" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="db:studio" />
+        <script value="build" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -120,11 +123,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.build" />
         <item itemvalue="npm.lint" />
         <item itemvalue="npm.db:up" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.start" />
-        <item itemvalue="npm.db:studio" />
       </list>
     </recent_temporary>
   </component>
@@ -143,7 +146,7 @@
       <option name="presentableId" value="Default" />
       <updated>1772553588882</updated>
       <workItem from="1772553591569" duration="2277000" />
-      <workItem from="1772574274759" duration="11587000" />
+      <workItem from="1772574274759" duration="12234000" />
     </task>
     <task id="LOCAL-00001" summary="chore: инициализация проекта&#10;&#10;- Next.js 16.1.6 + React 19 + TypeScript (App Router, алиас @/*)&#10;- Tailwind CSS v4 + shadcn/ui&#10;- Prisma 7 + @prisma/adapter-pg + pg (PostgreSQL)&#10;- Zod v4 + React Hook Form + @hookform/resolvers&#10;- Vitest + tsx (тесты и запуск сидов)">
       <option name="closed" value="true" />
@@ -249,7 +252,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772585862908</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fix(lint): убрать setState-вызовы из тела useEffect&#10;&#10;- заменить useCallback + вызов в useEffect на async load() внутри эффекта&#10;- обновление списка после действий через refreshKey (setRefreshKey)&#10;- dispatcher и master страницы">
+      <option name="closed" value="true" />
+      <created>1772586265244</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1772586265244</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,6 +290,7 @@
     <MESSAGE value="feat(ui): добавить страницу диспетчера&#10;&#10;- app/dispatcher/page.tsx — список всех заявок с фильтрацией по статусу&#10;- модальное окно назначения мастера (Select + PATCH /assign)&#10;- отмена заявок со статусом NEW и ASSIGNED (PATCH /cancel)&#10;- logout через POST /api/auth/logout" />
     <MESSAGE value="feat(ui): добавить страницу мастера&#10;&#10;- app/master/page.tsx — список назначенных заявок с фильтрацией по статусу&#10;- ASSIGNED → &quot;Взять в работу&quot; (PATCH /take) с обработкой 409 race condition&#10;- IN_PROGRESS → &quot;Завершить&quot; (PATCH /complete)&#10;- logout через POST /api/auth/logout" />
     <MESSAGE value="docs: добавить README и DECISIONS&#10;&#10;- README.md — стек, быстрый старт, тестовые пользователи, страницы,&#10;  жизненный цикл заявки, скрипты&#10;- DECISIONS.md — 7 архитектурных решений с обоснованием" />
-    <option name="LAST_COMMIT_MESSAGE" value="docs: добавить README и DECISIONS&#10;&#10;- README.md — стек, быстрый старт, тестовые пользователи, страницы,&#10;  жизненный цикл заявки, скрипты&#10;- DECISIONS.md — 7 архитектурных решений с обоснованием" />
+    <MESSAGE value="fix(lint): убрать setState-вызовы из тела useEffect&#10;&#10;- заменить useCallback + вызов в useEffect на async load() внутри эффекта&#10;- обновление списка после действий через refreshKey (setRefreshKey)&#10;- dispatcher и master страницы" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix(lint): убрать setState-вызовы из тела useEffect&#10;&#10;- заменить useCallback + вызов в useEffect на async load() внутри эффекта&#10;- обновление списка после действий через refreshKey (setRefreshKey)&#10;- dispatcher и master страницы" />
   </component>
 </project>

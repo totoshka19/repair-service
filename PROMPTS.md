@@ -222,3 +222,67 @@ Process finished with exit code 1
 
 ```
 
+---
+
+04.03.2026 04:07 
+
+```aiignore
+C:\nvm4w\nodejs\npm.cmd run build
+> repair-service@0.1.0 build
+> next build
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+  Creating an optimized production build ...
+  ✓ Compiled successfully in 4.6s
+  Running TypeScript  ..Failed to compile.
+  ./prisma.config.ts:5:3
+  Type error: Object literal may only specify known properties, and 'earlyAccess' does not exist in type 'PrismaConfig'.
+  3 |
+  4 | export default defineConfig({
+> 5 |   earlyAccess: true,
+|   ^
+6 |   schema: './prisma/schema.prisma',
+7 |   datasource: {
+8 |     url: env('DATABASE_URL'),
+Next.js build worker exited with code: 1 and signal: null
+Process finished with exit code 1
+```
+
+---
+
+04.03.2026 04:09
+
+```aiignore
+C:\nvm4w\nodejs\npm.cmd run build
+
+> repair-service@0.1.0 build
+> next build
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 4.4s
+  Running TypeScript  ...Failed to compile.
+
+./proxy.ts:8:53
+Type error: Argument of type 'RequestCookies' is not assignable to parameter of type 'CookieStore'.
+  Types of property 'set' are incompatible.
+    Type '(...args: [key: string, value: string] | [options: RequestCookie]) => RequestCookies' is not assignable to type '{ (name: string, value: string, cookie?: Partial<ResponseCookie> | undefined): void; (options: ResponseCookie): void; }'.
+      Types of parameters 'args' and 'name' are incompatible.
+        Type '[name: string, value: string, cookie?: Partial<ResponseCookie> | undefined]' is not assignable to type '[key: string, value: string] | [options: RequestCookie]'.
+          Type '[name: string, value: string, cookie?: Partial<ResponseCookie> | undefined]' is not assignable to type '[key: string, value: string]'.
+            Target allows only 2 element(s) but source may have more.
+
+   6 |   const { pathname } = request.nextUrl
+   7 |
+>  8 |   const session = await getIronSession<SessionData>(request.cookies, sessionOptions)
+     |                                                     ^
+   9 |
+  10 |   if (!session.userId) {
+  11 |     if (pathname.startsWith('/api/')) {
+Next.js build worker exited with code: 1 and signal: null
+
+Process finished with exit code 1
+```
+
