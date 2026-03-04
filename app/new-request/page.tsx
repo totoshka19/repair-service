@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
+import { IMaskInput } from 'react-imask'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -12,7 +13,9 @@ import { Label } from '@/components/ui/label'
 
 const newRequestSchema = z.object({
   clientName: z.string().min(2, 'Введите имя (минимум 2 символа)'),
-  phone: z.string().min(10, 'Введите корректный номер телефона'),
+  phone: z
+    .string()
+    .regex(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, 'Введите корректный номер телефона'),
   address: z.string().min(5, 'Введите адрес'),
   problemText: z.string().min(10, 'Опишите проблему подробнее (минимум 10 символов)'),
 })
@@ -24,6 +27,7 @@ export default function NewRequestPage() {
 
   const {
     register,
+    control,
     handleSubmit,
     reset,
     formState: { errors, isSubmitting },
@@ -92,7 +96,7 @@ export default function NewRequestPage() {
               <Label htmlFor="clientName">Ваше имя</Label>
               <Input
                 id="clientName"
-                placeholder="Иван Иванов"
+                placeholder="Введите ваше имя"
                 {...register('clientName')}
               />
               {errors.clientName && (
@@ -102,11 +106,21 @@ export default function NewRequestPage() {
 
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="phone">Телефон</Label>
-              <Input
-                id="phone"
-                placeholder="+7 (999) 000-00-00"
-                type="tel"
-                {...register('phone')}
+              <Controller
+                name="phone"
+                control={control}
+                render={({ field }) => (
+                  <IMaskInput
+                    id="phone"
+                    mask="+7 (000) 000-00-00"
+                    placeholder="+7 (___) ___-__-__"
+                    inputMode="numeric"
+                    value={field.value ?? ''}
+                    onAccept={(value) => field.onChange(value)}
+                    onBlur={field.onBlur}
+                    className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+                  />
+                )}
               />
               {errors.phone && (
                 <p className="text-xs text-destructive">{errors.phone.message}</p>
@@ -117,7 +131,7 @@ export default function NewRequestPage() {
               <Label htmlFor="address">Адрес</Label>
               <Input
                 id="address"
-                placeholder="ул. Ленина, д. 1, кв. 5"
+                placeholder="Введите ваш адрес"
                 {...register('address')}
               />
               {errors.address && (
@@ -129,7 +143,7 @@ export default function NewRequestPage() {
               <Label htmlFor="problemText">Описание проблемы</Label>
               <Input
                 id="problemText"
-                placeholder="Не работает кран на кухне…"
+                placeholder="Опишите вашу проблему"
                 {...register('problemText')}
               />
               {errors.problemText && (
