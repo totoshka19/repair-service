@@ -16,7 +16,7 @@ const newRequestSchema = z.object({
   phone: z
     .string()
     .regex(/^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/, 'Введите корректный номер телефона'),
-  address: z.string().min(5, 'Введите адрес'),
+  address: z.string().min(5, 'Введите адрес (минимум 5 символов)'),
   problemText: z.string().min(10, 'Опишите проблему подробнее (минимум 10 символов)'),
 })
 
@@ -33,6 +33,7 @@ export default function NewRequestPage() {
     formState: { errors, isSubmitting },
   } = useForm<NewRequestForm>({
     resolver: zodResolver(newRequestSchema),
+    defaultValues: { phone: '' },
   })
 
   const onSubmit = async (data: NewRequestForm) => {
