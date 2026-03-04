@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="fix: исправить конфигурацию Prisma 7 и запуск проекта&#10;&#10;- prisma/schema.prisma: добавлен блок datasource db { provider = &quot;postgresql&quot; }&#10;- prisma.config.ts: добавлен import dotenv/config, env() хелпер,&#10;  datasource.url для корректной работы prisma migrate&#10;- prisma/seed.ts: добавлен import dotenv/config для загрузки DATABASE_URL&#10;  при прямом запуске через tsx&#10;- package.json: добавлена зависимость dotenv">
+    <list default="true" id="15680922-ad2f-4a7e-89e4-c0606d569151" name="Changes" comment="feat: добавить общие UI компоненты&#10;&#10;- shadcn/ui: установлены button, input, label, select, badge,&#10;  card, form, sonner&#10;- app/layout.tsx: Toaster (sonner), lang=&quot;ru&quot;, title &quot;Ремонтная служба&quot;&#10;- components/StatusBadge.tsx: цветные бейджи статусов на русском,&#10;  экспортирует STATUS_LABELS для переиспользования&#10;- components/FilterBar.tsx: кнопки фильтрации по статусу,&#10;  активная кнопка выделена&#10;- components/RequestCard.tsx: карточка заявки с иконками, кнопки&#10;  действий рендерятся только при наличии колбэка">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PROMPTS.md" beforeDir="false" afterPath="$PROJECT_DIR$/PROMPTS.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +44,10 @@
     "nodejs_package_manager_path": "npm",
     "npm.Next.js: server-side.executor": "Run",
     "npm.db:studio.executor": "Run",
+    "npm.lint.executor": "Run",
     "npm.setup.executor": "Run",
+    "npm.start.executor": "Run",
+    "npm.test.executor": "Run",
     "to.speed.mode.migration.done": "true",
     "ts.external.directory.path": "D:\\Обучение\\Frontend\\Тестовые задания от работодателей\\База Бизнеса\\repair-service\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
@@ -76,6 +77,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="lint" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="lint" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="setup" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -86,8 +97,31 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.lint" />
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.db:studio" />
         <item itemvalue="npm.setup" />
       </list>
@@ -108,7 +142,7 @@
       <option name="presentableId" value="Default" />
       <updated>1772553588882</updated>
       <workItem from="1772553591569" duration="2277000" />
-      <workItem from="1772574274759" duration="7578000" />
+      <workItem from="1772574274759" duration="8199000" />
     </task>
     <task id="LOCAL-00001" summary="chore: инициализация проекта&#10;&#10;- Next.js 16.1.6 + React 19 + TypeScript (App Router, алиас @/*)&#10;- Tailwind CSS v4 + shadcn/ui&#10;- Prisma 7 + @prisma/adapter-pg + pg (PostgreSQL)&#10;- Zod v4 + React Hook Form + @hookform/resolvers&#10;- Vitest + tsx (тесты и запуск сидов)">
       <option name="closed" value="true" />
@@ -166,7 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772580915728</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="feat: добавить общие UI компоненты&#10;&#10;- shadcn/ui: установлены button, input, label, select, badge,&#10;  card, form, sonner&#10;- app/layout.tsx: Toaster (sonner), lang=&quot;ru&quot;, title &quot;Ремонтная служба&quot;&#10;- components/StatusBadge.tsx: цветные бейджи статусов на русском,&#10;  экспортирует STATUS_LABELS для переиспользования&#10;- components/FilterBar.tsx: кнопки фильтрации по статусу,&#10;  активная кнопка выделена&#10;- components/RequestCard.tsx: карточка заявки с иконками, кнопки&#10;  действий рендерятся только при наличии колбэка">
+      <option name="closed" value="true" />
+      <created>1772582039568</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1772582039568</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -190,6 +232,7 @@
     <MESSAGE value="feat: реализовать аутентификацию&#10;&#10;- lib/session.ts: SessionData, sessionOptions, getSession() с динамическим&#10;  импортом next/headers для совместимости с Edge runtime&#10;- prisma/seed.ts: 3 пользователя (dispatcher, master1, master2) + 7 заявок&#10;  всех статусов, пароли через bcrypt, идемпотентный upsert&#10;- middleware.ts: защита /dispatcher/*, /master/*, /api/requests/* по роли,&#10;  редирект на /login при отсутствии сессии&#10;- app/api/auth/login: POST — bcrypt-проверка пароля, установка cookie&#10;- app/api/auth/logout: POST — уничтожение сессии&#10;- app/api/auth/me: GET — данные текущего пользователя или 401" />
     <MESSAGE value="feat: реализовать API заявок&#10;&#10;- middleware.ts: исправлен :path* → :path+ для /api/requests,&#10;  POST создания заявки остаётся публичным&#10;- GET /api/requests: список с фильтром по статусу, диспетчер видит&#10;  все заявки, мастер - только свои&#10;- POST /api/requests: публичное создание, валидация через Zod,&#10;  статус NEW, запись в audit log&#10;- PATCH /api/requests/[id]/assign: назначить мастера (DISPATCHER),&#10;  NEW → ASSIGNED&#10;- PATCH /api/requests/[id]/cancel: отменить (DISPATCHER),&#10;  NEW/ASSIGNED → CANCELED&#10;- PATCH /api/requests/[id]/take: взять в работу (MASTER),&#10;  атомарный updateMany, 409 при гонке, ASSIGNED → IN_PROGRESS&#10;- PATCH /api/requests/[id]/complete: завершить (MASTER),&#10;  IN_PROGRESS → DONE&#10;- GET /api/users: список мастеров для диспетчера (?role=MASTER)&#10;- Все действия пишут событие в таблицу RequestEvent (audit log)" />
     <MESSAGE value="fix: исправить конфигурацию Prisma 7 и запуск проекта&#10;&#10;- prisma/schema.prisma: добавлен блок datasource db { provider = &quot;postgresql&quot; }&#10;- prisma.config.ts: добавлен import dotenv/config, env() хелпер,&#10;  datasource.url для корректной работы prisma migrate&#10;- prisma/seed.ts: добавлен import dotenv/config для загрузки DATABASE_URL&#10;  при прямом запуске через tsx&#10;- package.json: добавлена зависимость dotenv" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: исправить конфигурацию Prisma 7 и запуск проекта&#10;&#10;- prisma/schema.prisma: добавлен блок datasource db { provider = &quot;postgresql&quot; }&#10;- prisma.config.ts: добавлен import dotenv/config, env() хелпер,&#10;  datasource.url для корректной работы prisma migrate&#10;- prisma/seed.ts: добавлен import dotenv/config для загрузки DATABASE_URL&#10;  при прямом запуске через tsx&#10;- package.json: добавлена зависимость dotenv" />
+    <MESSAGE value="feat: добавить общие UI компоненты&#10;&#10;- shadcn/ui: установлены button, input, label, select, badge,&#10;  card, form, sonner&#10;- app/layout.tsx: Toaster (sonner), lang=&quot;ru&quot;, title &quot;Ремонтная служба&quot;&#10;- components/StatusBadge.tsx: цветные бейджи статусов на русском,&#10;  экспортирует STATUS_LABELS для переиспользования&#10;- components/FilterBar.tsx: кнопки фильтрации по статусу,&#10;  активная кнопка выделена&#10;- components/RequestCard.tsx: карточка заявки с иконками, кнопки&#10;  действий рендерятся только при наличии колбэка" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: добавить общие UI компоненты&#10;&#10;- shadcn/ui: установлены button, input, label, select, badge,&#10;  card, form, sonner&#10;- app/layout.tsx: Toaster (sonner), lang=&quot;ru&quot;, title &quot;Ремонтная служба&quot;&#10;- components/StatusBadge.tsx: цветные бейджи статусов на русском,&#10;  экспортирует STATUS_LABELS для переиспользования&#10;- components/FilterBar.tsx: кнопки фильтрации по статусу,&#10;  активная кнопка выделена&#10;- components/RequestCard.tsx: карточка заявки с иконками, кнопки&#10;  действий рендерятся только при наличии колбэка" />
   </component>
 </project>

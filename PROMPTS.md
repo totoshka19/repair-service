@@ -130,3 +130,8 @@
 04.03.2026 02:38 Установи shadcn/ui компоненты button input label select badge card form sonner.
 Создай компоненты StatusBadge, FilterBar, RequestCard, которые будут переиспользоваться во всех панелях.
 
+---
+
+04.03.2026 02:52 Реализуй страницы входа и создания заявки.
+
+---
