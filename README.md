@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Repair Service
 
-## Getting Started
+Сервис приёма и обработки заявок в ремонтную службу. Тестовое задание на позицию «Вайб кодер» - База Бизнеса.
 
-First, run the development server:
+## Стек
+
+| Категория | Технология |
+|-----------|-----------|
+| Фреймворк | Next.js 16 (App Router) |
+| UI | React 19, Tailwind CSS v4, shadcn/ui |
+| Язык | TypeScript (strict) |
+| БД | PostgreSQL 17 |
+| ORM | Prisma 7 + `@prisma/adapter-pg` |
+| Аутентификация | iron-session v8 (httpOnly cookie) |
+| Валидация | Zod v4 + React Hook Form |
+| Тесты | Vitest |
+| Инфраструктура | Docker Compose |
+
+## Быстрый старт
+
+**Prerequisites:** Docker Desktop, Node.js 20+
 
 ```bash
+git clone <repo-url>
+cd repair-service
+
+npm install
+
+cp .env.example .env
+# При необходимости отредактируй DATABASE_URL и SESSION_SECRET в .env
+
+npm run setup
+# Поднимает БД, выполняет миграции, заполняет тестовыми данными
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Тестовые пользователи
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Логин | Пароль | Роль |
+|-------|--------|------|
+| `dispatcher` | `disp123` | Диспетчер |
+| `master1` | `master123` | Мастер |
+| `master2` | `master123` | Мастер |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Страницы
 
-## Learn More
+| URL | Доступ | Описание |
+|-----|--------|----------|
+| `/login` | Публичная | Вход в систему |
+| `/new-request` | Публичная | Форма подачи заявки клиентом |
+| `/dispatcher` | DISPATCHER | Все заявки, назначение мастера, отмена |
+| `/master` | MASTER | Свои заявки, взять в работу, завершить |
 
-To learn more about Next.js, take a look at the following resources:
+## Жизненный цикл заявки
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+NEW → ASSIGNED → IN_PROGRESS → DONE
+ ↓        ↓
+CANCELED CANCELED
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Скрипты
 
-## Deploy on Vercel
+```bash
+npm run dev          # Запуск dev-сервера
+npm run build        # Production сборка
+npm run test         # Запуск тестов (Vitest)
+npm run db:up        # Поднять БД (Docker)
+npm run db:down      # Остановить БД
+npm run db:migrate   # Выполнить миграции
+npm run db:seed      # Заполнить тестовыми данными
+npm run db:studio    # Открыть Prisma Studio
+npm run db:reset     # Сбросить БД и пересоздать
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Тесты
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm test
+```
+
+Тесты покрывают:
+- Создание и валидацию заявок
+- Полный цикл статусов
+- Защиту от гонки при одновременном взятии заявки двумя мастерами (ожидается `200` + `409`)
