@@ -590,3 +590,11 @@ AssertionError: expected 72 to be 71 // Object.is equality
 Process finished with exit code 1
 
 ```
+
+---
+
+04.03.2026 13:44 Изучи проект. Есть ли в нем лишние файлы и код, которые не используются?
+
+---
+
+04.03.2026 13:50 Удали components/ui/form.tsx. Убери CardAction и CardDescription из card.tsx
