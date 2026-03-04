@@ -602,3 +602,17 @@ Process finished with exit code 1
 ---
 
 04.03.2026 13:55 Сейчас в проекте стандартная favicon. Сделай подходящую.
+
+---
+
+04.03.2026 14:02 Исправь эти ошибки
+
+```
+D:\Обучение\Frontend\Тестовые задания от работодателей\База Бизнеса\repair-service\app\globals.css
+Error:(10, 20) Cannot resolve '--font-geist-sans' custom property
+Error:(11, 20) Cannot resolve '--font-geist-mono' custom property
+```
+
+---
+
+04.03.2026 14:05 Шрифт сбросился, некрасиво стало.
