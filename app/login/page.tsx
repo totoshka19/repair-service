@@ -22,6 +22,7 @@ type LoginForm = z.infer<typeof loginSchema>
 export default function LoginPage() {
   const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
+  const [isNavigating, setIsNavigating] = useState(false)
 
   const {
     register,
@@ -45,6 +46,7 @@ export default function LoginPage() {
     }
 
     const { role } = await res.json()
+    setIsNavigating(true)
     router.push(role === 'DISPATCHER' ? '/dispatcher' : '/master')
   }
 
@@ -97,8 +99,8 @@ export default function LoginPage() {
               )}
             </div>
 
-            <Button type="submit" disabled={isSubmitting} className="mt-2">
-              {isSubmitting ? 'Вход…' : 'Войти'}
+            <Button type="submit" disabled={isSubmitting || isNavigating} className="mt-2">
+              {isSubmitting || isNavigating ? 'Вход…' : 'Войти'}
             </Button>
           </form>
 
